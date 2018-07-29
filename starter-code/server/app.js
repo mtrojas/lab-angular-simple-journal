@@ -8,7 +8,15 @@ const layouts      = require('express-ejs-layouts');
 const mongoose     = require('mongoose');
 const cors         = require('cors');
 
-mongoose.connect('mongodb://localhost/journal-development');
+
+mongoose.Promise = Promise;
+mongoose
+  .connect('mongodb://localhost/journal-development', {useMongoClient: true})
+  .then(() => {
+    console.log('Connected to Mongo!')
+  }).catch(err => {
+    console.error('Error connecting to mongo', err)
+  });
 
 const app = express();
 
@@ -29,11 +37,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
 
+
 const index = require('./routes/index');
+const journalRoutes = require('./routes/api/journal-entries');
+app.use('/api/journal-entries/', journalRoutes);
 app.use('/', index);
 
+
+
+
 app.all('/*', function (req, res) {
-  res.sendfile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

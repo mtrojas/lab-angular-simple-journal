@@ -1,0 +1,9 @@
+<h2>Create a new entry</h2>
+<section class="container">
+  <input [(ngModel)]="entry.title" type="text">
+  <br>
+  <textarea [(ngModel)]="entry.content"></textarea>
+  <br>
+  <button type="button" class="btn btn-dark" (click)="createEntry()">Save</button>
+</section>
+

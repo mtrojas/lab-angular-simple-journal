@@ -1,0 +1,19 @@
+<div class="container">
+  <button type="button" class="btn btn-secondary btn-lg btn-block" [routerLink]="['new']">Press here to create a new Journal Entry</button>
+</div>
+
+<h1>Journal Entries List</h1>
+<div class="container">
+  <ul class="list-group" *ngFor="let entry of entries">
+      <li class="list-group-item"> 
+        {{ entry.title }}  || 
+        {{ entry.date }}
+        <a class="btn btn-sm btn-secondary" [routerLink]="['/entry', entry._id]">Details</a>
+      </li>
+  </ul>
+</div>
+
+
+
+
+
